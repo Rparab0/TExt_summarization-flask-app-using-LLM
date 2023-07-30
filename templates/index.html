@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Text Summarizer</title>
+    <!-- Add neumorphic style CSS -->
+    <link rel="stylesheet" href="static\styles.css" />
+    <!-- Add custom fonts from Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="main_body">
+    <div class="container">
+      <h1 class="header">Text Summarizer using LLM</h1>
+      <form method="POST" action="/">
+        <div style="display: flex">
+          <div style="flex: 1; margin-right: 10px">
+            <label for="input_text"></label><br />
+            <div style="position: relative">
+              <textarea
+                name="input_text"
+                rows="10"
+                cols="50"
+                oninput="countWords(this)"
+                class="neumorphic-textarea"
+                placeholder="Enter your text here..."
+              >
+{{ input_text }}</textarea
+              >
+              <span
+                style="
+                  position: absolute;
+                  top: 8px;
+                  right: 8px;
+                  font-size: 14px;
+                "
+              >
+                Words: <span id="wordCount">{{ num_words_input }}</span>
+              </span>
+            </div>
+          </div>
+          <div style="flex: 1; margin-left: 30px">
+            <label for="summary"></label><br />
+            <textarea
+              name="summary"
+              rows="10"
+              cols="50"
+              readonly
+              class="neumorphic-textarea"
+              placeholder="Your summary will appear here..."
+            >
+{% if summary %}{{ summary }}{% endif %}</textarea
+            >
+          </div>
+        </div>
+
+        <label for="instructions"></label><br />
+        <textarea
+          name="instructions"
+          rows="5"
+          cols="50"
+          class="pill-input"
+          placeholder="Add any specific instructions for summarization..."
+        >
+{{ instructions }}</textarea
+        >
+
+        <div class="switch">
+          <input
+            type="checkbox"
+            name="abstractive"
+            id="toggle"
+            {%
+            if
+            abstractive
+            %}checked{%
+            endif
+            %}
+          />
+          <label for="toggle">
+            <i class="bulb">
+              <span class="bulb-center"></span>
+              <span class="filament-1"></span>
+              <span class="filament-2"></span>
+              <span class="reflections">
+                <span></span>
+              </span>
+              <span class="sparks">
+                <i class="spark1"></i>
+                <i class="spark2"></i>
+                <i class="spark3"></i>
+                <i class="spark4"></i>
+              </span>
+            </i>
+          </label>
+          <div class="info-icon">
+            ℹ️
+            <span class="info-text">Off: Extractive, On: Abstractive</span>
+          </div>
+        </div>
+
+        <input
+          type="submit"
+          value="Summarize"
+          class="neumorphic-button"
+          onclick="showSpinner()"
+        />
+        <div class="spinner-container" style="display: none">
+          <!-- Loading spinner -->
+          <div class="lds-spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      // Function to show the spinner
+      function showSpinner() {
+        document.querySelector(".spinner-container").style.display = "block";
+      }
+
+      // Function to hide the spinner
+      function hideSpinner() {
+        document.querySelector(".spinner-container").style.display = "none";
+      }
+
+      // Add an event listener to the form submission
+      const form = document.querySelector("form");
+      form.addEventListener("submit", function () {
+        showSpinner(); // Show the spinner when the form is submitted
+
+        // Add any other form submission logic here
+
+        // Example: Simulate a delay of 3 seconds to simulate form processing
+        setTimeout(function () {
+          hideSpinner(); // Hide the spinner after the processing is done
+        }, 3000);
+      });
+
+      function countWords(textarea) {
+        var words = textarea.value.trim().split(/\s+/);
+        var wordCountElement = document.getElementById("wordCount");
+        wordCountElement.innerText = words.length;
+      }
+    </script>
+  </body>
+</html>
