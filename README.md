@@ -10,7 +10,7 @@ The Text Summarization Web App is a user-friendly application that leverages the
 
 Here is a screenshot of the web interface of our Text Summarization Web App:
 
-![Web App Screenshot](screenshots/app_interface.png)
+![Web App Screenshot](screenshots/app_interface.jpeg)
 
 ## Features
 
